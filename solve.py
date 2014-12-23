@@ -64,8 +64,7 @@ def visit(node, path):
 		path.remove(node)
 		return 1
 	count = 0
-	for i in range(0, len(node.adjacents)):
-		adjacent = node.adjacents[i]
+	for adjacent in node.adjacents:
 		count += visit(adjacent, path)
 	# dead end
 	path.remove(node)
@@ -74,10 +73,10 @@ def visit(node, path):
 
 if __name__ == '__main__':
 
-	raw = '3 5\n\
-	22 22 22 11 11\n\
-	22 22 22 11 11\n\
-	11 11 22 22 22'
+	raw = '3 5\n' +\
+	'22 22 22 11 11\n' +\
+	'22 22 22 11 11\n' +\
+	'11 11 22 22 22'
 
 	first_node = parse_and_get_first_node(raw)
 
