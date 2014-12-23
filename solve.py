@@ -14,10 +14,7 @@ class Node:
 		self.adjacents = visitables
 
 	def is_visitable(self, from_):
-		if (self in from_.adjacents) and \
-		   (from_.altitude >= self.altitude):
-		   	return True
-		return False
+		return (from_.altitude >= self.altitude)
 
 	def __repr__(self):
 		return '<Node altitude=%d>' % self.altitude
@@ -35,7 +32,7 @@ def parse_and_get_first_node(raw):
 		row = rows[y] = rows[y].split(' ')
 		for x in range(0, len(row)):
 			altitude = row[x] = int(row[x])
-			node = row[x] = Node(altitude)
+			row[x] = node = Node(altitude)
 
 			if x > 0:
 				left = row[x-1]
@@ -47,13 +44,12 @@ def parse_and_get_first_node(raw):
 				node.add_adjacent(upper)
 				upper.add_adjacent(node)
 
-	flat = [item for sublist in rows for item in sublist] # googled how to flatten
+	flat = [item for sublist in rows for item in sublist] # googled how to
+	[node.remove_unvisitable_adjacents() for node in flat]
 
 	first_node = flat[0]
 	last_node = flat[-1]
 	last_node.is_destination = True
-
-	[node.remove_unvisitable_adjacents() for node in flat]
 
 	return first_node
 
