@@ -1,3 +1,4 @@
+#!/usr/bin/python
 
 class Node:
 	def __init__(self, altitude):
@@ -28,9 +29,9 @@ def parse_and_get_first_node(raw):
 	height = int(dimension[0])
 	width = int(dimension[1])
 
-	for y in range(0, len(rows)):
+	for y in range(0, height):
 		row = rows[y] = rows[y].split(' ')
-		for x in range(0, len(row)):
+		for x in range(0, width):
 			altitude = row[x] = int(row[x])
 			row[x] = node = Node(altitude)
 
@@ -73,7 +74,7 @@ def visit(node, path):
 
 if __name__ == '__main__':
 
-	raw = '5 3\n\
+	raw = '3 5\n\
 	22 22 22 11 11\n\
 	22 22 22 11 11\n\
 	11 11 22 22 22'
