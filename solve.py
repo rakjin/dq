@@ -34,7 +34,7 @@ class Node:
 
 input = '2 5\n\
 88 99 44 33 22\n\
-77 66 55 99 11'
+77 66 55 33 11'
 
 
 rows = input.splitlines()
@@ -71,14 +71,22 @@ last_node.is_destination = True
 
 node0 = flat[0]
 
-def visit(node):
+
+def visit(node, path):
+	if node in path:
+		return
 	print('visiting %s' % node)
+	path.append(node)
 	if node.is_destination:
 		print('destination')
+		#print(path)
+		path.remove(node)
 		return
 	for i in range(0, len(node.adjacents)):
 		adjacent = node.adjacents[i]
-		visit(adjacent)
-	print('dead end')
+		visit(adjacent, path)
+	#print('dead end')
+	path.remove(node)
 
-visit(node0)
+path = []
+visit(node0, path)
